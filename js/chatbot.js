@@ -1,4 +1,7 @@
 const __chatbot = () => document.getElementById("chatbot");
+const __chatbot__chatbotButton = () =>
+  document.getElementById("chatbot-button");
+const __chatbot__chat = () => document.getElementById("chatbot-chat");
 const __chatbot__chatMain = () => document.getElementById("chatbot-chat-main");
 const __chatbot__userInput = () =>
   document.getElementById("chatbot-user-input");
@@ -20,7 +23,7 @@ const __chatbot__setChatBot = () => {
   const bot = __chatbot();
 
   bot.innerHTML = `
-    <div id="chatbot-chat" class="">
+    <div id="chatbot-chat" class="chatbot-visibility-hidden">
       <div id="chatbot-chat-heading">
         Chatbot
       </div>
@@ -43,6 +46,21 @@ const __chatbot__setChatBot = () => {
 
 // Add event listeners
 const __chatbot__addEventListeners = () => {
+  // Chatbot button
+  let chatButton = __chatbot__chatbotButton();
+  chatButton.addEventListener("click", () => {
+    if (
+      [...__chatbot__chat().classList].includes("chatbot-visibility-hidden")
+    ) {
+      __chatbot__chat().classList.remove("chatbot-visibility-hidden");
+      __chatbot__userInput().focus();
+    } else {
+      __chatbot__chat().classList.add("chatbot-visibility-hidden");
+      __chatbot__userInput().blur();
+    }
+  });
+
+  // Chatbot input
   let chatInput = __chatbot__userInput();
   chatInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
