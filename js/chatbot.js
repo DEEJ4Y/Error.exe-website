@@ -1,7 +1,10 @@
 const __chatbot = () => document.getElementById("chatbot");
+const __chatbot__chatMain = () => document.getElementById("chatbot-chat-main");
+const __chatbot__userInput = () =>
+  document.getElementById("chatbot-user-input");
 
 // Load CSS file
-const __getCSS = () => {
+const __chatbot__getCSS = () => {
   let head = document.getElementsByTagName("head")[0];
 
   let chatbotCSS = document.createElement("link");
@@ -13,19 +16,19 @@ const __getCSS = () => {
 };
 
 // Set styles
-const __setChatBot = () => {
+const __chatbot__setChatBot = () => {
   const bot = __chatbot();
 
   bot.innerHTML = `
-    <div id="chatbot-chat" class="chatbot-visibility-hidden">
+    <div id="chatbot-chat" class="">
       <div id="chatbot-chat-heading">
         Chatbot
       </div>
       <div id="chatbot-chat-main">
-        <div class="chatbot-chat-left"></div>
+        <div class="chatbot-chat-message chatbot-chat-left">Hi, how may I help you?</div>
       </div>
       <div id="chatbot-chat-input">
-        <input id="chatbot-user-input" type="text">
+        <input id="chatbot-user-input" type="text" placeholder="Message...">
       </div>
     </div>
     <div id="chatbot-button">
@@ -34,12 +37,50 @@ const __setChatBot = () => {
       </svg>
     </div>
   `;
+
+  __chatbot__addEventListeners();
+};
+
+// Add event listeners
+const __chatbot__addEventListeners = () => {
+  let chatInput = __chatbot__userInput();
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      __chatbot__sendMessage();
+    }
+  });
+};
+
+// Send Message
+const __chatbot__sendMessage = () => {
+  const sendMessage = () => {
+    const message = __chatbot__userInput().value;
+    if (message && message !== "") {
+      updateChat(message);
+      __chatbot__userInput().value = "";
+    }
+  };
+
+  const updateChat = (message) => {
+    let chatMain = __chatbot__chatMain();
+    chatMain.innerHTML += `
+      <div class="chatbot-message-separator"></div>
+      <div class="chatbot-chat-message chatbot-chat-right">${message}</div>
+    `;
+    chatMain = __chatbot__chatMain();
+    let chatMainChildren = chatMain.children;
+    let lastChildIndex = chatMain.children.length - 1;
+    let lastChild = chatMainChildren[lastChildIndex];
+    lastChild.scrollIntoView();
+  };
+
+  sendMessage();
 };
 
 // Main
 const __chatbot_main = () => {
-  __getCSS();
-  __setChatBot();
+  __chatbot__getCSS();
+  __chatbot__setChatBot();
 };
 
 __chatbot_main();
