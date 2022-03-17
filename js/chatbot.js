@@ -76,13 +76,14 @@ const __chatbot__sendMessage = () => {
     if (message && message !== "") {
       updateChat(message);
       __chatbot__userInput().value = "";
+      getResponse(message);
     }
   };
 
   const updateChat = (message) => {
     let chatMain = __chatbot__chatMain();
     chatMain.innerHTML += `
-      <div class="chatbot-message-separator"></div>
+      <div class="chatbot-message-separator-right"></div>
       <div class="chatbot-chat-message chatbot-chat-right">${message}</div>
     `;
     chatMain = __chatbot__chatMain();
@@ -90,6 +91,40 @@ const __chatbot__sendMessage = () => {
     let lastChildIndex = chatMain.children.length - 1;
     let lastChild = chatMainChildren[lastChildIndex];
     lastChild.scrollIntoView();
+  };
+
+  const updateBot = (message) => {
+    let chatMain = __chatbot__chatMain();
+    chatMain.innerHTML += `
+      <div class="chatbot-message-separator"></div>
+      <div class="chatbot-chat-message chatbot-chat-left">${message}</div>
+    `;
+    chatMain = __chatbot__chatMain();
+    let chatMainChildren = chatMain.children;
+    let lastChildIndex = chatMain.children.length - 1;
+    let lastChild = chatMainChildren[lastChildIndex];
+    lastChild.scrollIntoView();
+  };
+
+  const getResponse = async (message) => {
+    const res = await fetch(`http://localhost:8000/?question=${message}`);
+
+    if (res) {
+      const data = await res.json();
+      const questions = data[0]["Question->"];
+      const answers = data[1]["Answer->"];
+      console.log(questions, answers);
+
+      if (questions.length === 0) {
+        if (message.toLowerCase() === "hi")
+          updateBot(`Hi, Please type search for something related to escaping`);
+      } else {
+        questions.forEach((question, id) => {
+          //  	  console.log(question, answers[id])
+          updateBot(`Q: ${question} <br> A: ${answers[id]}`);
+        });
+      }
+    }
   };
 
   sendMessage();

@@ -69,9 +69,7 @@
 .chatbot-chat-message {
   border-radius: 4px;
   padding: 4px 8px;
-  display: inline;
   margin-bottom: 4px;
-  position: absolute;
 }
 
 .chatbot-chat-left {
@@ -84,10 +82,13 @@
   background-color: teal;
   color: white;
   right: 4px;
+  text-align: right;
+  width: fit-content;
+  margin-left: auto;
 }
 
 .chatbot-message-separator {
-  height: 40px;
+  height: 0px;
   width: 100%;
 }
 
