@@ -25,7 +25,7 @@ const __chatbot__setChatBot = () => {
   bot.innerHTML = `
     <div id="chatbot-chat" class="chatbot-visibility-hidden">
       <div id="chatbot-chat-heading">
-        Chatbot
+        Auxilium
       </div>
       <div id="chatbot-chat-main">
         <div class="chatbot-chat-message chatbot-chat-left">Hi, how may I help you?</div>
