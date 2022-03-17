@@ -114,10 +114,12 @@ const __chatbot__sendMessage = () => {
       const questions = data[0]["Question->"];
       const answers = data[1]["Answer->"];
       console.log(questions, answers);
-
       if (questions.length === 0) {
-        if (message.toLowerCase() === "hi")
-          updateBot(`Hi, Please type search for something related to escaping`);
+        updateBot(`Emergency Helpline <br>
+Contact Numbers: <br>
++380 997300483 <br>
++380 997300428 <br>
+Email-Id: cons1.kyiv@mea.gov.in'`);
       } else {
         questions.forEach((question, id) => {
           //  	  console.log(question, answers[id])

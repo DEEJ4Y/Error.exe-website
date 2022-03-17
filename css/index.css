@@ -10,3 +10,7 @@ html {
 .img-top {
   height: 60px;
 }
+
+.pdf-embed {
+  width: 100%;
+}
