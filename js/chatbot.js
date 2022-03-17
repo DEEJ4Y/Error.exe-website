@@ -13,7 +13,7 @@ const __chatbot__getCSS = () => {
   let chatbotCSS = document.createElement("link");
   chatbotCSS.rel = "stylesheet";
   chatbotCSS.type = "text/css";
-  chatbotCSS.href = "./css/chatbot.css";
+  chatbotCSS.href = "http://deej4y.github.io/Error.exe-website/css/chatbot.css";
 
   head.appendChild(chatbotCSS);
 };
